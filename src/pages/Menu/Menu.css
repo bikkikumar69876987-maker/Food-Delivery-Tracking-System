@@ -10,6 +10,38 @@ color:#ff5722;
 margin-bottom:25px;
 }
 
+.menu-restaurant{
+display:flex;
+align-items:center;
+gap:20px;
+max-width:900px;
+margin:0 auto 25px;
+padding:16px;
+background:white;
+border-radius:12px;
+box-shadow:0 5px 15px rgba(0,0,0,.1);
+}
+
+.menu-restaurant img{
+width:180px;
+height:130px;
+border-radius:8px;
+object-fit:cover;
+}
+
+.menu-restaurant h1{
+margin:0 0 10px;
+text-align:left;
+}
+
+.menu-restaurant p{
+margin:0;
+}
+
+.menu-not-found{
+text-align:center;
+}
+
 .cart-box{
 width:220px;
 margin:auto;
@@ -72,4 +104,20 @@ margin-top:10px;
 
 .food-body button:hover{
 background:#e64a19;
+}
+
+@media (max-width: 540px){
+.menu-page{
+padding:24px 16px;
+}
+
+.menu-restaurant{
+align-items:flex-start;
+flex-direction:column;
+}
+
+.menu-restaurant img{
+width:100%;
+height:180px;
+}
 }

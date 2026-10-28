@@ -14,6 +14,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/restaurants" element={<Restaurants />} />
         <Route path="/menu" element={<Menu />} />
+        <Route path="/restaurants/:restaurantId/menu" element={<Menu />} />
       </Routes>
     </>
   );

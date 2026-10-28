@@ -1,4 +1,14 @@
+import { useState } from "react";
+import RestaurantCard from "../../components/RestaurantCard/RestaurantCard";
+import restaurants from "../../utils/restaurants";
+
 function Home() {
+  const [searchInput, setSearchInput] = useState("");
+  const [search, setSearch] = useState("");
+  const filteredRestaurants = restaurants.filter((restaurant) =>
+    restaurant.name.toLowerCase().includes(search.trim().toLowerCase())
+  );
+
   return (
     <div>
       {/* Hero Section */}
@@ -18,22 +28,37 @@ function Home() {
           Order from your favourite restaurants in minutes.
         </p>
 
-        <div style={{ marginTop: "35px" }}>
+        <form
+          onSubmit={(event) => {
+            event.preventDefault();
+            setSearch(searchInput);
+          }}
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            gap: "10px",
+            flexWrap: "wrap",
+            marginTop: "35px",
+          }}
+        >
           <input
             type="text"
-            placeholder="Search Food..."
+            placeholder="Search restaurants..."
+            value={searchInput}
+            onChange={(event) => setSearchInput(event.target.value)}
+            aria-label="Search restaurants by name"
             style={{
-              width: "350px",
+              width: "min(350px, 100%)",
+              boxSizing: "border-box",
               padding: "15px",
               fontSize: "18px",
               borderRadius: "8px",
               border: "none",
             }}
           />
-
           <button
+            type="submit"
             style={{
-              marginLeft: "10px",
               padding: "15px 25px",
               background: "#222",
               color: "white",
@@ -44,7 +69,7 @@ function Home() {
           >
             Search
           </button>
-        </div>
+        </form>
       </section>
 
       {/* Food Categories */}
@@ -79,117 +104,16 @@ function Home() {
             justifyContent: "center",
           }}
         >
-          <div
-            style={{
-              width: "280px",
-              border: "1px solid #ddd",
-              borderRadius: "12px",
-              overflow: "hidden",
-              boxShadow: "0 5px 15px rgba(0,0,0,.1)",
-            }}
-          >
-            <img
-              src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=800"
-              alt="Pizza"
-              style={{
-                width: "100%",
-                height: "180px",
-                objectFit: "cover",
-              }}
-            />
-
-            <div style={{ padding: "15px" }}>
-              <h3>Pizza Palace</h3>
-              <p>⭐ 4.8 | 25 mins</p>
-
-              <button
-                style={{
-                  background: "#ff5722",
-                  color: "white",
-                  border: "none",
-                  padding: "10px 20px",
-                  borderRadius: "8px",
-                }}
-              >
-                View Menu
-              </button>
-            </div>
-          </div>
-
-          <div
-            style={{
-              width: "280px",
-              border: "1px solid #ddd",
-              borderRadius: "12px",
-              overflow: "hidden",
-              boxShadow: "0 5px 15px rgba(0,0,0,.1)",
-            }}
-          >
-            <img
-              src="https://images.unsplash.com/photo-1550547660-d9450f859349?w=800"
-              alt="Burger"
-              style={{
-                width: "100%",
-                height: "180px",
-                objectFit: "cover",
-              }}
-            />
-
-            <div style={{ padding: "15px" }}>
-              <h3>Burger Hub</h3>
-              <p>⭐ 4.7 | 18 mins</p>
-
-              <button
-                style={{
-                  background: "#ff5722",
-                  color: "white",
-                  border: "none",
-                  padding: "10px 20px",
-                  borderRadius: "8px",
-                }}
-              >
-                View Menu
-              </button>
-            </div>
-          </div>
-
-          <div
-            style={{
-              width: "280px",
-              border: "1px solid #ddd",
-              borderRadius: "12px",
-              overflow: "hidden",
-              boxShadow: "0 5px 15px rgba(0,0,0,.1)",
-            }}
-          >
-            <img
-              src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800"
-              alt="Italian"
-              style={{
-                width: "100%",
-                height: "180px",
-                objectFit: "cover",
-              }}
-            />
-
-            <div style={{ padding: "15px" }}>
-              <h3>Italian Corner</h3>
-              <p>⭐ 4.9 | 20 mins</p>
-
-              <button
-                style={{
-                  background: "#ff5722",
-                  color: "white",
-                  border: "none",
-                  padding: "10px 20px",
-                  borderRadius: "8px",
-                }}
-              >
-                View Menu
-              </button>
-            </div>
-          </div>
+          {filteredRestaurants.map((restaurant) => (
+            <RestaurantCard key={restaurant.id} restaurant={restaurant} />
+          ))}
         </div>
+
+        {filteredRestaurants.length === 0 && (
+          <p style={{ marginTop: "24px", textAlign: "center" }}>
+            No restaurants found.
+          </p>
+        )}
       </section>
     </div>
   );
