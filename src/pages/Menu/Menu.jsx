@@ -1,9 +1,10 @@
-import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import "./Menu.css";
 import restaurants from "../../utils/restaurants";
+import { useCart } from "../../context/CartContext";
 
 function Menu() {
+  const { addItem, itemCount } = useCart();
   const { restaurantId } = useParams();
   const restaurant = restaurants.find(
     (item) => String(item.id) === restaurantId
@@ -59,12 +60,6 @@ function Menu() {
     },
   ];
 
-  const [cart, setCart] = useState([]);
-
-  const addToCart = (food) => {
-    setCart((currentCart) => [...currentCart, food]);
-  };
-
   return (
     <div className="menu-page">
       {restaurant ? (
@@ -80,7 +75,8 @@ function Menu() {
       )}
 
       <div className="cart-box">
-        🛒 Cart Items : <b>{cart.length}</b>
+        🛒 Cart Items : <b>{itemCount}</b>
+        <Link to="/cart">View cart</Link>
       </div>
 
       {restaurantId && !restaurant ? (
@@ -96,7 +92,12 @@ function Menu() {
                 <h2>{food.name}</h2>
                 <p>⭐ {food.rating}</p>
                 <h3>₹ {food.price}</h3>
-                <button onClick={() => addToCart(food)}>Add To Cart</button>
+                <button
+                  type="button"
+                  onClick={() => addItem(food, restaurant)}
+                >
+                  Add to Cart
+                </button>
               </div>
             </div>
           ))}
