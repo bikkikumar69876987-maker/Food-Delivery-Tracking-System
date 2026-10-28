@@ -1,0 +1,11 @@
+.navbar-profile-link {
+  display: inline-flex;
+  color: white;
+  text-decoration: none;
+}
+
+.navbar-profile-link:focus-visible {
+  border-radius: 50%;
+  outline: 3px solid rgba(255, 255, 255, 0.65);
+  outline-offset: 3px;
+}

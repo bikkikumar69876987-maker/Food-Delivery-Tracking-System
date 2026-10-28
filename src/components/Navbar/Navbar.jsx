@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { FaShoppingCart, FaUserCircle } from "react-icons/fa";
 import { useCart } from "../../context/CartContext";
+import "./Navbar.css";
 
 function Navbar() {
   const { itemCount } = useCart();
@@ -78,7 +79,13 @@ function Navbar() {
           </span>
         </Link>
 
-        <FaUserCircle size={24} style={{ cursor: "pointer" }} />
+        <Link
+          className="navbar-profile-link"
+          to="/login"
+          aria-label="Login or create an account"
+        >
+          <FaUserCircle size={24} />
+        </Link>
       </div>
     </nav>
   );

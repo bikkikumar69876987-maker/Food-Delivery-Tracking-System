@@ -1,0 +1,5 @@
+.auth-page--signup {
+  background:
+    radial-gradient(ellipse at 50% 15%, rgba(255, 87, 34, 0.1), transparent 52%),
+    #f7f7f7;
+}
