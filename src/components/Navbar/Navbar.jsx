@@ -81,8 +81,8 @@ function Navbar() {
 
         <Link
           className="navbar-profile-link"
-          to="/login"
-          aria-label="Login or create an account"
+          to="/profile"
+          aria-label="View profile"
         >
           <FaUserCircle size={24} />
         </Link>

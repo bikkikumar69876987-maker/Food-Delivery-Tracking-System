@@ -1,0 +1,82 @@
+.not-found-page {
+  display: grid;
+  min-height: calc(100vh - 70px);
+  box-sizing: border-box;
+  place-items: center;
+  padding: 32px 16px;
+  background:
+    radial-gradient(ellipse at 50% 25%, rgba(255, 87, 34, 0.09), transparent 52%),
+    #f7f7f7;
+  color: #292421;
+}
+
+.not-found-card {
+  display: flex;
+  width: min(100%, 520px);
+  box-sizing: border-box;
+  flex-direction: column;
+  align-items: center;
+  padding: clamp(28px, 6vw, 52px);
+  border: 1px solid #f0eeec;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 18px 50px rgba(37, 29, 25, 0.08);
+  text-align: center;
+}
+
+.not-found-card__icon {
+  display: grid;
+  width: 94px;
+  height: 94px;
+  margin-bottom: 20px;
+  place-items: center;
+  border-radius: 50%;
+  background: #fff0eb;
+  color: #ff5722;
+  font-size: 39px;
+}
+
+.not-found-card__code {
+  margin: 0 0 7px;
+  color: #ff5722;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.not-found-card h1 {
+  margin: 0;
+  font-size: clamp(27px, 5vw, 36px);
+}
+
+.not-found-card > p:not(.not-found-card__code) {
+  max-width: 390px;
+  margin: 12px 0 24px;
+  color: #777;
+  line-height: 1.6;
+}
+
+.not-found-card a {
+  display: inline-flex;
+  min-height: 47px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 22px;
+  border-radius: 8px;
+  background: #ff5722;
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.not-found-card a:hover {
+  transform: translateY(-2px);
+  background: #e64a19;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .not-found-card a {
+    transition: none;
+  }
+}

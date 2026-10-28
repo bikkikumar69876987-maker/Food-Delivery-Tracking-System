@@ -10,6 +10,9 @@ import OrderSuccess from "./pages/OrderSuccess/OrderSuccess";
 import Tracking from "./pages/Tracking/Tracking";
 import Login from "./pages/Login/Login";
 import Signup from "./pages/Signup/Signup";
+import Profile from "./pages/Profile/Profile";
+import Orders from "./pages/Orders/Orders";
+import NotFound from "./pages/NotFound/NotFound";
 
 function App() {
   return (
@@ -27,6 +30,9 @@ function App() {
         <Route path="/tracking/:orderId" element={<Tracking />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/orders" element={<Orders />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );

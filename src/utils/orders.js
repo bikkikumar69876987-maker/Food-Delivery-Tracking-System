@@ -27,7 +27,7 @@ export function formatDeliveryAddress(customer) {
     .join(", ");
 }
 
-function readOrders() {
+export function getAllOrders() {
   let storedOrders;
 
   try {
@@ -77,7 +77,7 @@ export function createOrder({ customer, paymentMethod, items }) {
     throw new Error("Add items to your cart before placing an order.");
   }
 
-  const orders = readOrders();
+  const orders = getAllOrders();
   const order = {
     orderId: generateOrderId(new Set(orders.map((savedOrder) => savedOrder.orderId))),
     createdAt: new Date().toISOString(),
@@ -93,16 +93,16 @@ export function createOrder({ customer, paymentMethod, items }) {
 }
 
 export function getOrderById(orderId) {
-  return readOrders().find((order) => order.orderId === orderId) ?? null;
+  return getAllOrders().find((order) => order.orderId === orderId) ?? null;
 }
 
 export function getLatestOrder() {
-  const orders = readOrders();
+  const orders = getAllOrders();
   return orders.length > 0 ? orders[orders.length - 1] : null;
 }
 
 export function advanceOrderProgress(orderId) {
-  const orders = readOrders();
+  const orders = getAllOrders();
   const orderIndex = orders.findIndex((order) => order.orderId === orderId);
 
   if (orderIndex === -1) {
@@ -117,4 +117,28 @@ export function advanceOrderProgress(orderId) {
   writeOrders(orders);
 
   return updatedOrder;
+}
+
+export function getOrderRestaurantName(order) {
+  const restaurantNames = [
+    ...new Set(order.items.map((item) => item.restaurantName).filter(Boolean)),
+  ];
+
+  if (restaurantNames.length === 0) {
+    return "Food Tracker Restaurant";
+  }
+
+  return restaurantNames.length === 1
+    ? restaurantNames[0]
+    : "Multiple Restaurants";
+}
+
+export function getOrderStatus(order) {
+  if (order.status === "cancelled") {
+    return "Cancelled";
+  }
+
+  return order.progressIndex >= ORDER_STAGES.length - 1
+    ? "Delivered"
+    : "On the Way";
 }
