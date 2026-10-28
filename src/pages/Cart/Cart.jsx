@@ -2,11 +2,8 @@ import { Link } from "react-router-dom";
 import { FaShoppingBasket } from "react-icons/fa";
 import CartItem from "../../components/CartItem/CartItem";
 import { useCart } from "../../context/CartContext";
+import { formatCurrency } from "../../utils/checkout";
 import "./Cart.css";
-
-function formatCurrency(amount) {
-  return `₹${amount.toFixed(2)}`;
-}
 
 function Cart() {
   const {
@@ -72,6 +69,12 @@ function Cart() {
               <span>Total</span>
               <span>{formatCurrency(total)}</span>
             </div>
+            <Link
+              className="cart-page__checkout-button"
+              to="/checkout"
+            >
+              Proceed to Checkout
+            </Link>
             <p className="cart-summary__note">
               Delivery fee is applied once per order.
             </p>

@@ -104,7 +104,27 @@
   transition: background 0.2s ease;
 }
 
+.cart-page__checkout-button {
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 24px;
+  border-radius: 8px;
+  background: #ff5722;
+  color: white;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
 .cart-page__primary-button:hover {
+  background: #e64a19;
+}
+
+.cart-page__checkout-button:hover {
+  transform: translateY(-2px);
   background: #e64a19;
 }
 

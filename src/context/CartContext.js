@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { DELIVERY_FEE } from "../utils/checkout";
 
 const STORAGE_KEY = "food-delivery-cart";
-const DELIVERY_FEE = 40;
 const CartContext = createContext(null);
 
 function isValidCartItem(item) {

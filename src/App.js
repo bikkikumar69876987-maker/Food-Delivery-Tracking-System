@@ -5,6 +5,7 @@ import Home from "./pages/Home/Home";
 import Restaurants from "./pages/Restaurants/Restaurants";
 import Menu from "./pages/Menu/Menu";
 import Cart from "./pages/Cart/Cart";
+import Checkout from "./pages/Checkout/Checkout";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/menu" element={<Menu />} />
         <Route path="/restaurants/:restaurantId/menu" element={<Menu />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/checkout" element={<Checkout />} />
       </Routes>
     </>
   );
