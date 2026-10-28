@@ -10,16 +10,19 @@ const paymentMethods = [
   },
 ];
 
-function CustomerDetailsForm() {
+function CustomerDetailsForm({ onValidSubmit }) {
   const [phoneError, setPhoneError] = useState("");
-  const [confirmation, setConfirmation] = useState("");
 
   function handleSubmit(event) {
     event.preventDefault();
-    setConfirmation("");
 
     const form = event.currentTarget;
-    const phone = new FormData(form).get("phone").toString();
+    if (!form.reportValidity()) {
+      return;
+    }
+
+    const formData = new FormData(form);
+    const phone = String(formData.get("phone") || "");
     const digitCount = phone.replace(/\D/g, "").length;
 
     if (digitCount < 8 || digitCount > 15) {
@@ -29,13 +32,18 @@ function CustomerDetailsForm() {
 
     setPhoneError("");
 
-    if (!form.reportValidity()) {
-      return;
-    }
-
-    setConfirmation(
-      "Your details are valid. Payment and order placement are not connected yet."
-    );
+    onValidSubmit({
+      customer: {
+        fullName: formData.get("fullName").toString().trim(),
+        phone: phone.trim(),
+        email: formData.get("email").toString().trim(),
+        address: formData.get("address").toString().trim(),
+        city: formData.get("city").toString().trim(),
+        state: formData.get("state").toString().trim(),
+        pinCode: formData.get("pinCode").toString().trim(),
+      },
+      paymentMethod: formData.get("paymentMethod").toString(),
+    });
   }
 
   return (
@@ -111,7 +119,6 @@ function CustomerDetailsForm() {
               inputMode="numeric"
               autoComplete="postal-code"
               pattern="[0-9]+"
-              onChange={() => setConfirmation("")}
               required
             />
           </label>
@@ -148,11 +155,6 @@ function CustomerDetailsForm() {
       <button className="checkout-submit" type="submit">
         Continue with selected payment
       </button>
-      {confirmation && (
-        <p className="checkout-confirmation" role="status">
-          {confirmation}
-        </p>
-      )}
     </form>
   );
 }

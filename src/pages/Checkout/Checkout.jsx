@@ -1,12 +1,29 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { FaShoppingBasket } from "react-icons/fa";
 import CustomerDetailsForm from "../../components/Checkout/CustomerDetailsForm";
 import OrderSummary from "../../components/Checkout/OrderSummary";
 import { useCart } from "../../context/CartContext";
+import { createOrder } from "../../utils/orders";
 import "./Checkout.css";
 
 function Checkout() {
-  const { items } = useCart();
+  const { items, clearCart } = useCart();
+  const navigate = useNavigate();
+  const [orderError, setOrderError] = useState("");
+
+  function handleValidSubmit(orderDetails) {
+    setOrderError("");
+
+    try {
+      const order = createOrder({ ...orderDetails, items });
+      clearCart();
+      navigate("/order-success", { state: { orderId: order.orderId } });
+    } catch (error) {
+      console.error("Unable to complete checkout.", error);
+      setOrderError(error.message);
+    }
+  }
 
   return (
     <main className="checkout-page">
@@ -29,7 +46,14 @@ function Checkout() {
         </section>
       ) : (
         <div className="checkout-layout">
-          <CustomerDetailsForm />
+          <div className="checkout-layout__form">
+            <CustomerDetailsForm onValidSubmit={handleValidSubmit} />
+            {orderError && (
+              <p className="checkout-field__error" role="alert">
+                {orderError}
+              </p>
+            )}
+          </div>
           <OrderSummary items={items} />
         </div>
       )}
